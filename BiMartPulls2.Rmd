@@ -1,0 +1,216 @@
+---
+title: "BiMartPulls2"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+library(tidyverse)
+```
+
+# 50 Years of Bi-Mart Lucky Number Tuesdays
+Each pull is a year of 52 trips to Bi-Mart on Tuesday to check for a matching lucky number with the member ID.  There are two differnt IDs that can be used, so each trip is a 20% chance of winning.
+```{r}
+fiftyYears <- data_frame(year = 1:50, yearlyWins = rbinom(50, 52, 0.2))
+```
+
+## Year 1
+```{r}
+fiftyYears %>%
+  slice(row_number(1)) %>%
+  ggplot(aes(x = yearlyWins)) +
+  geom_dotplot(binwidth = 1) +
+  scale_x_continuous(limits = c(0, 16)) +
+  theme(axis.text.y = element_blank(),
+        axis.ticks.y = element_blank()) +
+  labs(x = "Wins Per Year",
+       title = "Number of Winning Trips to Bi-Mart in ONE Year",
+       subtitle = "Assumes a 20% chance of winning on each trip, and all 52 Tuesdays observed")
+```
+
+## Year 2
+```{r}
+fiftyYears %>%
+  slice(row_number(1:2)) %>%
+  mutate(color = if_else(row_number() == n(), "red", "black")) %>%
+  ggplot(aes(x = yearlyWins, fill = color)) +
+  geom_dotplot(binwidth = 1) +
+  scale_x_continuous(limits = c(0, 16)) +
+  scale_fill_manual(values = c("black", "red")) +
+  theme(axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        legend.position = "none") +
+  labs(x = "Wins Per Year",
+       title = "Number of Winning Trips to Bi-Mart in TWO Years",
+       subtitle = "Assumes a 20% chance of winning on each trip, and all 52 Tuesdays observed")
+```
+
+## Year 3
+```{r}
+fiftyYears %>%
+  slice(row_number(1:3)) %>%
+  mutate(color = if_else(row_number() == n(), "red", "black")) %>%
+  ggplot(aes(x = yearlyWins, fill = color)) +
+  geom_dotplot(binwidth = 1) +
+  scale_x_continuous(limits = c(0, 16)) +
+  scale_fill_manual(values = c("black", "red")) +
+  theme(axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        legend.position = "none") +
+  labs(x = "Wins Per Year",
+       title = "Number of Winning Trips to Bi-Mart in THREE Years",
+       subtitle = "Assumes a 20% chance of winning on each trip, and all 52 Tuesdays observed")
+```
+
+
+## Year 4
+```{r}
+fiftyYears %>%
+  slice(row_number(1:4)) %>%
+  mutate(color = if_else(row_number() == n(), "red", "black")) %>%
+  ggplot(aes(x = yearlyWins, fill = color)) +
+  geom_dotplot(binwidth = 1) +
+  scale_x_continuous(limits = c(0, 16)) +
+  scale_fill_manual(values = c("black", "red")) +
+  theme(axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        legend.position = "none") +
+  labs(x = "Wins Per Year",
+       title = "Number of Winning Trips to Bi-Mart in FOUR Years",
+       subtitle = "Assumes a 20% chance of winning on each trip, and all 52 Tuesdays observed")
+```
+
+
+## Year 5
+```{r}
+fiftyYears %>%
+  slice(row_number(1:5)) %>%
+  mutate(color = if_else(row_number() == n(), "red", "black")) %>%
+  ggplot(aes(x = yearlyWins, fill = color)) +
+  geom_dotplot(binwidth = 1) +
+  scale_x_continuous(limits = c(0, 16)) +
+  scale_fill_manual(values = c("black", "red")) +
+  theme(axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        legend.position = "none") +
+  labs(x = "Wins Per Year",
+       title = "Number of Winning Trips to Bi-Mart in FIVE Years",
+       subtitle = "Assumes a 20% chance of winning on each trip, and all 52 Tuesdays observed")
+```
+
+## 6 Years
+```{r}
+fiftyYears %>%
+  slice(row_number(1:6)) %>%
+  mutate(color = if_else(row_number() == n(), "red", "black")) %>%
+  ggplot(aes(x = yearlyWins, fill = color)) +
+  geom_dotplot(binwidth = 1) +
+  scale_x_continuous(limits = c(0, 16)) +
+  scale_fill_manual(values = c("black", "red")) +
+  theme(axis.text.y = element_blank(),
+        axis.ticks.y = element_blank(),
+        legend.position = "none") +
+  labs(x = "Wins Per Year",
+       title = "Number of Winning Trips to Bi-Mart in SIX Years",
+       subtitle = "Assumes a 20% chance of winning on each trip, and all 52 Tuesdays observed")
+```
+
+## 7 Years
+```{r}
+fiftyYears %>%
+  slice(row_number(1:7)) %>%
+  ggplot(aes(x = yearlyWins)) +
+  geom_dotplot(binwidth = 1) +
+  scale_x_continuous(limits = c(0, 16)) +
+  theme(axis.text.y = element_blank(),
+        axis.ticks.y = element_blank()) +
+  labs(x = "Wins Per Year",
+       title = "Number of Winning Trips to Bi-Mart in SEVEN Years",
+       subtitle = "Assumes a 20% chance of winning on each trip, and all 52 Tuesdays observed")
+```
+
+## All 50 Years
+```{r}
+fiftyYears %>%
+  ggplot(aes(x = yearlyWins)) +
+  geom_dotplot(binwidth = 1) +
+  theme(axis.text.y = element_blank(),
+        axis.ticks.y = element_blank()) +
+  scale_x_continuous(limits = c(0, 20)) +
+  labs(x = "Wins Per Year",
+       title = "Number of Winning Trips to Bi-Mart in TWO Years",
+       subtitle = "Assumes a 20% chance of winning on each trip, and all 52 Tuesdays observed")
+```
+
+```{r}
+fiftyYears %>%
+  count(as.factor(yearlyWins)) %>%
+  mutate(PercentOfTimes = n/sum(n)*100.0)
+```
+
+# 20,000 Years
+Assumes going every week at a 20% win rate
+```{r}
+twentyKYears <- data_frame(year = 1:20000, yearlyWins = rbinom(20000, 52, 0.2))
+```
+
+```{r}
+twentyKYears %>%
+  ggplot(aes(x = yearlyWins)) +
+  geom_histogram(binwidth = 1) +
+  geom_density(color = "blue") +
+  labs(x = "Wins Per Year",
+       title = "Number of Winning Trips to Bi-Mart in 20,000 Years",
+       subtitle = "Assumes a 20% chance of winning on each trip, and all 52 Tuesdays observed")
+```
+
+```{r}
+twentyKYears %>%
+  ggplot(aes(x = yearlyWins)) +
+  geom_histogram(binwidth = 1) +
+  geom_density(color = "blue", adjust = 2, aes(y = ..count..)) +
+  labs(x = "Wins Per Year",
+       title = "Number of Winning Trips to Bi-Mart in 20,000 Years",
+       subtitle = "Assumes a 20% chance of winning on each trip, and all 52 Tuesdays observed")
+```
+
+```{r}
+twentyKYears %>%
+  ggplot(aes(x = yearlyWins)) +
+  geom_density(color = "blue", adjust = 2) +
+  labs(x = "Wins Per Year",
+       title = "Number of Winning Trips to Bi-Mart in 20,000 Years",
+       subtitle = "Assumes a 20% chance of winning on each trip, and all 52 Tuesdays observed")
+
+```
+
+# Realistic Yearly Trips
+```{r}
+twentyKRealYears <- data_frame(year = 1:20000, yearlyWins = rbinom(20000, 40, 0.2))
+```
+
+```{r}
+twentyKRealYears %>%
+  ggplot(aes(x = yearlyWins)) +
+  geom_density(color = "red", adjust = 2) +
+  labs(x = "Wins Per Year",
+       title = "Number of Winning Trips to Bi-Mart in 20,000 Years",
+       subtitle = "Assumes a 20% chance of winning on each trip, but only 40 Tuesdays observed")
+
+```
+
+
+```{r}
+twentyKRealYears %>%
+  right_join(twentyKYears, by = "year", suffix = c("40", "52")) %>%
+  gather(key = yearRate, value = yearlyWins, -year) %>%
+  ggplot(aes(x = yearlyWins, col = yearRate)) +
+  geom_density(adjust = 2) +
+  labs(x = "Wins Per Year",
+       title = "Number of Winning Trips to Bi-Mart in 20,000 Years",
+       subtitle = "Assumes a 20% chance of winning on each trip")
+```
+
